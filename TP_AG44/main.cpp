@@ -8,6 +8,6 @@ using namespace std;
 int main()
 {
     graph g(10);
-    g.printAll();
+    g.printTable();
     return 0;
 }

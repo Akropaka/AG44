@@ -19,6 +19,7 @@ class graph
         virtual ~graph();
         graph& operator=(graph& other);
         void printAll();
+        void printTable();
     protected:
 
     private:

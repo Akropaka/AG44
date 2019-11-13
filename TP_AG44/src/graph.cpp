@@ -55,3 +55,30 @@ void graph::printAll(){
         cout << "Edge | ID : " << (*it).id << " | From Vertex ID : " << (*it).from.id << " | To Vertex ID : " << (*it).to.y << endl;
     }
 }
+
+void graph::printTable(){
+    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it)
+    {
+        cout << "  " << (*it).id;
+    }
+    cout << endl;
+    int last = 0;
+    for(vector<vertex>::iterator itv=vVertex.begin(); itv!=vVertex.end(); ++itv)
+    {
+        cout << (*itv).id;
+        for(vector<edge>::iterator ite=vEdge.begin(); ite!=vEdge.end(); ++ite)
+        {
+            if((*ite).from.id == (*itv).id)
+            {
+                for(int i=0; i < (*ite).to.id - last - 1; ++i)
+                {
+                    cout << "   ";
+                }
+                last = (*ite).to.id;
+                cout << " " << (*ite).to.id << " ";
+            }
+        }
+        cout << endl;
+        last = 0;
+    }
+}

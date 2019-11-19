@@ -2,6 +2,9 @@
 #include <vector>
 #include <iterator>
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -20,6 +23,7 @@ graph::graph(int nbrVertex)
             if(test == 1){
                 this->vEdge.push_back(edge(id,*it,*it2,1.));
                 ++id;
+                //(*it).vNeighbour.push_back((*it2));
             }
         }
     }
@@ -56,29 +60,141 @@ void graph::printAll(){
     }
 }
 
-void graph::printTable(){
+void graph::printMatrix(){
+    cout << "    ";
     for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it)
     {
-        cout << "  " << (*it).id;
+        cout << (*it).id << " ";
     }
     cout << endl;
-    int last = 0;
-    for(vector<vertex>::iterator itv=vVertex.begin(); itv!=vVertex.end(); ++itv)
+    for(vector<vertex>::iterator itx=vVertex.begin(); itx!=vVertex.end(); ++itx)
     {
-        cout << (*itv).id;
-        for(vector<edge>::iterator ite=vEdge.begin(); ite!=vEdge.end(); ++ite)
+        cout << (*itx).id;
+        for(int i=0;i<(4-getNumberSize((*itx).id));++i)
         {
-            if((*ite).from.id == (*itv).id)
+            cout << " ";
+        }
+        for(vector<vertex>::iterator ity=vVertex.begin(); ity!=vVertex.end(); ++ity)
+        {
+            bool space = true;
+            for(edge &e : vEdge)
             {
-                for(int i=0; i < (*ite).to.id - last - 1; ++i)
-                {
-                    cout << "   ";
+                if(e.from.id == (*itx).id && e.to.id == (*ity).id){
+                    cout << "X";
+                    for(int i=0;i<getNumberSize((*ity).id);++i)
+                    {
+                        cout << " ";
+                    }
+                    space = false;
                 }
-                last = (*ite).to.id;
-                cout << " " << (*ite).to.id << " ";
+            }
+            if(space){
+                cout << " ";
+                for(int i=0;i<getNumberSize((*ity).id);++i)
+                {
+                    cout << " ";
+                }
             }
         }
         cout << endl;
-        last = 0;
     }
+}
+
+void graph::printAdjList(){
+    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it){
+        cout << (*it).id << " : ";
+        for(edge& e : vEdge)
+        {
+            if(e.from.id == (*it).id){
+                cout << e.to.id << "|";
+            }
+        }
+        cout << endl;
+    }
+}
+
+void graph::toFileAdjList(const string path)
+{
+    ofstream fStream(path);
+    int nbr = 0;
+    for(vertex& v : vVertex)
+    {
+        nbr++;
+    }
+    fStream << nbr << endl;
+    nbr=0;
+    for(edge& e : vEdge)
+    {
+        nbr++;
+    }
+    fStream << nbr << endl;
+    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it){
+        fStream << (*it).id << " ";
+        for(edge& e : vEdge)
+        {
+            if(e.from.id == (*it).id){
+                fStream << e.to.id << " ";
+            }
+        }
+        fStream << endl;
+    }
+}
+
+void graph::getAdjListFromFile(const string path)
+{
+    ifstream fStream(path);
+    this->vEdge.clear();
+    this->vVertex.clear();
+    int sizeVertex = 0, sizeEdge = 0;
+    fStream >> sizeVertex;
+    fStream >> sizeEdge;
+    char c;
+    fStream >> c;
+    string temp;
+    int fromId;
+    int toId;
+    for(int i=0;i<sizeVertex;++i){
+        string s;
+        stringstream ss;
+        getline(fStream,s);
+        ss << s;
+        int turn = 0;
+        vertex from;
+        vertex to;
+        while(!ss.eof()){
+            if(turn==0)
+            {
+                ss >> temp;
+                if(stringstream(temp) >> fromId)
+                {
+                    cout << fromId;
+                    from = vertex(fromId,0,0);
+                    vVertex.push_back(from);
+                }
+            }
+            else
+            {
+                ss >> temp;
+                if(stringstream(temp) >> toId)
+                {
+                    cout << toId;
+                    to = vertex(toId,0,0);
+                    vEdge.push_back(edge((turn-2)*i,from,to,0));
+                }
+            }
+            turn++;
+        }
+        cout << endl;
+    }
+}
+
+int getNumberSize(int n)
+{
+    int res = 1;
+    while(n/10 > 0)
+    {
+        n=n/10;
+        res++;
+    }
+    return res;
 }

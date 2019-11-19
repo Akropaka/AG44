@@ -4,6 +4,7 @@
 #include <vector>
 #include "edge.h"
 #include "vertex.h"
+#include <string>
 
 using namespace std;
 
@@ -19,7 +20,10 @@ class graph
         virtual ~graph();
         graph& operator=(graph& other);
         void printAll();
-        void printTable();
+        void printMatrix();
+        void printAdjList();
+        void toFileAdjList(const string);
+        void getAdjListFromFile(const string);
     protected:
 
     private:
@@ -27,5 +31,7 @@ class graph
         vector<edge> vEdge;
         enum {DEFAULT_VERTEX = 10};
 };
+
+int getNumberSize(int);
 
 #endif // GRAPH_H

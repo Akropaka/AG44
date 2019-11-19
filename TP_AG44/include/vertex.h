@@ -1,6 +1,9 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <vector>
+
+using namespace std;
 
 class vertex
 {
@@ -10,6 +13,7 @@ class vertex
         virtual ~vertex();
         int id;
         int x,y;
+        vector<vertex> vNeighbour;
     protected:
 };
 

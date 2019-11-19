@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1573650373 source:/home/users/telhajhu/Bureau/AG44/TP_AG44/main.cpp
+1574185973 source:/home/users/telhajhu/Bureau/AG44/TP_AG44/main.cpp
 	<iostream>
 	"graph.h"
 	"edge.h"
@@ -11,19 +11,24 @@
 1569945511 /home/users/telhajhu/Bureau/AG44/TP_AG44/include/edge.h
 	"vertex.h"
 
-1569945059 /home/users/telhajhu/Bureau/AG44/TP_AG44/include/vertex.h
+1574186502 /home/users/telhajhu/Bureau/AG44/TP_AG44/include/vertex.h
+	<vector>
 
 1569942830 source:/home/users/telhajhu/Bureau/AG44/TP_AG44/src/vertex.cpp
 	"vertex.h"
 
-1573652509 source:/home/users/telhajhu/Bureau/AG44/TP_AG44/src/graph.cpp
+1574186666 source:/home/users/telhajhu/Bureau/AG44/TP_AG44/src/graph.cpp
 	"graph.h"
 	<vector>
 	<iterator>
 	<iostream>
+	<string>
+	<fstream>
+	<sstream>
 
-1571833895 /home/users/telhajhu/Bureau/AG44/TP_AG44/include/graph.h
+1574181177 /home/users/telhajhu/Bureau/AG44/TP_AG44/include/graph.h
 	<vector>
 	"edge.h"
 	"vertex.h"
+	<string>
 

@@ -7,10 +7,10 @@ using namespace std;
 
 int main()
 {
-    graph g(25);
+    graph g(10,false);
     //g.printMatrix();
-    //g.toFileAdjList("AdjList");
+    g.toFileAdjList("AdjList");
     g.getAdjListFromFile("AdjList");
-    g.printAdjList();
+    g.printMatrix();
     return 0;
 }

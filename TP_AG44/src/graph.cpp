@@ -12,6 +12,7 @@ graph::graph(int nbrVertex)
 {
     srand(time(0));
     int id = 0;
+    directedGraph = true;
     for(int i=0;i<nbrVertex;++i){
         vVertex.push_back(vertex(i,i,i));
     }
@@ -19,10 +20,47 @@ graph::graph(int nbrVertex)
     {
         for(vector<vertex>::iterator it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
         {
-            int test = rand()%2;
+            int test = rand()%3;
             if(test == 1){
                 this->vEdge.push_back(edge(id,*it,*it2,1.));
                 ++id;
+                //(*it).vNeighbour.push_back((*it2));
+            }
+        }
+    }
+}
+
+graph::graph(int nbrVertex, bool directed)
+{
+    srand(time(0));
+    int id = 0;
+    directedGraph = directed;
+    for(int i=0;i<nbrVertex;++i){
+        vVertex.push_back(vertex(i,i,i));
+    }
+    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it)
+    {
+        for(vector<vertex>::iterator it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
+        {
+            bool exist = false;
+            int test = rand()%3;
+            if(test == 1){
+                for(edge& e : vEdge)
+                {
+                    if(e.from.id == (*it).id && e.to.id == (*it2).id)
+                    {
+                        exist = true;
+                    }
+                }
+                if(!exist)
+                {
+                    this->vEdge.push_back(edge(id,*it,*it2,1.));
+                    if(!directedGraph)
+                    {
+                        this->vEdge.push_back(edge(id,*it2,*it,1.));
+                    }
+                    ++id;
+                }
                 //(*it).vNeighbour.push_back((*it2));
             }
         }
@@ -127,7 +165,15 @@ void graph::toFileAdjList(const string path)
     {
         nbr++;
     }
-    fStream << nbr << endl;
+    if(directedGraph)
+    {
+        fStream << 'o' << endl;
+    }
+    else
+    {
+        fStream << 'n' << endl;
+    }
+
     for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it){
         fStream << (*it).id << " ";
         for(edge& e : vEdge)
@@ -145,15 +191,15 @@ void graph::getAdjListFromFile(const string path)
     ifstream fStream(path);
     this->vEdge.clear();
     this->vVertex.clear();
+    char c;
     int sizeVertex = 0, sizeEdge = 0;
     fStream >> sizeVertex;
-    fStream >> sizeEdge;
-    char c;
     fStream >> c;
+    //fStream >> c;
     string temp;
     int fromId;
     int toId;
-    for(int i=0;i<sizeVertex;++i){
+    for(int i=0;i<=sizeVertex;++i){
         string s;
         stringstream ss;
         getline(fStream,s);
@@ -167,7 +213,6 @@ void graph::getAdjListFromFile(const string path)
                 ss >> temp;
                 if(stringstream(temp) >> fromId)
                 {
-                    cout << fromId;
                     from = vertex(fromId,0,0);
                     vVertex.push_back(from);
                 }
@@ -177,14 +222,15 @@ void graph::getAdjListFromFile(const string path)
                 ss >> temp;
                 if(stringstream(temp) >> toId)
                 {
-                    cout << toId;
-                    to = vertex(toId,0,0);
-                    vEdge.push_back(edge((turn-2)*i,from,to,0));
+                    if(to.id != toId || turn==1)
+                    {
+                        to = vertex(toId,0,0);
+                        vEdge.push_back(edge((turn-1)*i,from,to,0));
+                    }
                 }
             }
             turn++;
         }
-        cout << endl;
     }
 }
 

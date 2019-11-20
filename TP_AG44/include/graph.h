@@ -25,6 +25,7 @@ class graph
         void printAdjList();
         void toFileAdjList(const string);
         void getAdjListFromFile(const string);
+        void toFileMatrix(const string);
     protected:
 
     private:

@@ -173,13 +173,58 @@ void graph::toFileAdjList(const string path)
     {
         fStream << 'n' << endl;
     }
-
+    fStream << 'l' << endl;
     for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it){
         fStream << (*it).id << " ";
         for(edge& e : vEdge)
         {
             if(e.from.id == (*it).id){
                 fStream << e.to.id << " ";
+            }
+        }
+        fStream << endl;
+    }
+}
+
+void graph::toFileMatrix(const string path)
+{
+    ofstream fStream(path);
+    int nbr = 0;
+    for(vertex& v : vVertex)
+    {
+        nbr++;
+    }
+    fStream << nbr << endl;
+    nbr=0;
+    for(edge& e : vEdge)
+    {
+        nbr++;
+    }
+    if(directedGraph)
+    {
+        fStream << 'o' << endl;
+    }
+    else
+    {
+        fStream << 'n' << endl;
+    }
+    fStream << 'm' << endl;
+    for(vector<vertex>::iterator itx=vVertex.begin(); itx!=vVertex.end(); ++itx)
+    {
+        for(vector<vertex>::iterator ity=vVertex.begin(); ity!=vVertex.end(); ++ity)
+        {
+            bool found = false;
+            for(edge& e : vEdge)
+            {
+                if((*itx).id == e.from.id && (*ity).id == e.to.id)
+                {
+                    fStream << e.cost << " ";
+                    found = true;
+                }
+            }
+            if(!found)
+            {
+                fStream << 0 << " ";
             }
         }
         fStream << endl;
@@ -199,37 +244,49 @@ void graph::getAdjListFromFile(const string path)
     string temp;
     int fromId;
     int toId;
-    for(int i=0;i<=sizeVertex;++i){
-        string s;
-        stringstream ss;
-        getline(fStream,s);
-        ss << s;
-        int turn = 0;
-        vertex from;
-        vertex to;
-        while(!ss.eof()){
-            if(turn==0)
-            {
-                ss >> temp;
-                if(stringstream(temp) >> fromId)
+    fStream >> c;
+    if(c == 'l')
+    {
+        for(int i=0;i<=sizeVertex;++i){
+            string s;
+            stringstream ss;
+            getline(fStream,s);
+            ss << s;
+            int turn = 0;
+            vertex from;
+            vertex to;
+            while(!ss.eof()){
+                if(turn==0)
                 {
-                    from = vertex(fromId,0,0);
-                    vVertex.push_back(from);
-                }
-            }
-            else
-            {
-                ss >> temp;
-                if(stringstream(temp) >> toId)
-                {
-                    if(to.id != toId || turn==1)
+                    ss >> temp;
+                    if(stringstream(temp) >> fromId)
                     {
-                        to = vertex(toId,0,0);
-                        vEdge.push_back(edge((turn-1)*i,from,to,0));
+                        from = vertex(fromId,0,0);
+                        vVertex.push_back(from);
                     }
                 }
+                else
+                {
+                    ss >> temp;
+                    if(stringstream(temp) >> toId)
+                    {
+                        if(to.id != toId || turn==1)
+                        {
+                            to = vertex(toId,0,0);
+                            vEdge.push_back(edge((turn-1)*i,from,to,0));
+                        }
+                    }
+                }
+                turn++;
             }
-            turn++;
+        }
+    }
+    else if(c == 'm')
+    {
+        for(int i=0;i<=sizeVertex;++i)
+        {
+            string s;
+            stringstream ss;
         }
     }
 }

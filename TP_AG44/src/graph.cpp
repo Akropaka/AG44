@@ -14,15 +14,15 @@ graph::graph(int nbrVertex)
     int id = 0;
     directedGraph = true;
     for(int i=0;i<nbrVertex;++i){
-        vVertex.push_back(vertex(i,i,i));
+        vVertex.push_back(new vertex(i,i,i));
     }
-    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it)
+    for(auto it=vVertex.begin(); it!=vVertex.end(); ++it)
     {
-        for(vector<vertex>::iterator it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
+        for(auto it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
         {
             int test = rand()%3;
             if(test == 1){
-                this->vEdge.push_back(edge(id,*it,*it2,1.));
+                this->vEdge.push_back(new edge(id,*it,*it2,1.));
                 ++id;
                 //(*it).vNeighbour.push_back((*it2));
             }
@@ -36,32 +36,32 @@ graph::graph(int nbrVertex, bool directed)
     int id = 0;
     directedGraph = directed;
     for(int i=0;i<nbrVertex;++i){
-        vVertex.push_back(vertex(i,i,i));
+        vVertex.push_back(new vertex(i,i,i));
     }
-    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it)
+    for(auto it=vVertex.begin(); it!=vVertex.end(); ++it)
     {
-        for(vector<vertex>::iterator it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
+        for(auto it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
         {
             bool exist = false;
             int test = rand()%3;
             if(test == 1){
-                for(edge& e : vEdge)
+                for(edge* e : vEdge)
                 {
-                    if(e.from.id == (*it).id && e.to.id == (*it2).id)
+                    if(e->from->id == (*it)->id && e->to->id == (*it2)->id)
                     {
                         exist = true;
                     }
                 }
                 if(!exist)
                 {
-                    this->vEdge.push_back(edge(id,*it,*it2,1.));
+                    this->vEdge.push_back(new edge(id,*it,*it2,1.));
                     if(!directedGraph)
                     {
-                        this->vEdge.push_back(edge(id,*it2,*it,1.));
+                        this->vEdge.push_back(new edge(id,*it2,*it,1.));
                     }
                     ++id;
                 }
-                //(*it).vNeighbour.push_back((*it2));
+                (*it)->vNeighbour.push_back(make_pair((*it2),vEdge[id-1]->cost));
             }
         }
     }
@@ -76,11 +76,11 @@ graph::~graph()
 graph& graph::operator=(graph& other){
     vVertex.clear();
     vEdge.clear();
-    for(vector<vertex>::iterator it=other.vVertex.begin(); it!=other.vVertex.end(); ++it)
+    for(auto it=other.vVertex.begin(); it!=other.vVertex.end(); ++it)
     {
         this->vVertex.push_back(*it);
     }
-    for(vector<edge>::iterator it=other.vEdge.begin(); it!=other.vEdge.end(); ++it)
+    for(auto it=other.vEdge.begin(); it!=other.vEdge.end(); ++it)
     {
         this->vEdge.push_back(*it);
     }
@@ -88,38 +88,38 @@ graph& graph::operator=(graph& other){
 }
 
 void graph::printAll(){
-    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it)
+    for(auto it=vVertex.begin(); it!=vVertex.end(); ++it)
     {
-        cout << "Vertex | ID : " << (*it).id << " | X : " << (*it).x << " | Y : " << (*it).y << endl;
+        cout << "Vertex | ID : " << (*it)->id << " | X : " << (*it)->x << " | Y : " << (*it)->y << endl;
     }
-    for(vector<edge>::iterator it=vEdge.begin(); it!=vEdge.end(); ++it)
+    for(auto it=vEdge.begin(); it!=vEdge.end(); ++it)
     {
-        cout << "Edge | ID : " << (*it).id << " | From Vertex ID : " << (*it).from.id << " | To Vertex ID : " << (*it).to.y << endl;
+        cout << "Edge | ID : " << (*it)->id << " | From Vertex ID : " << (*it)->from->id << " | To Vertex ID : " << (*it)->to->y << endl;
     }
 }
 
 void graph::printMatrix(){
     cout << "    ";
-    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it)
+    for(auto it=vVertex.begin(); it!=vVertex.end(); ++it)
     {
-        cout << (*it).id << " ";
+        cout << (*it)->id << " ";
     }
     cout << endl;
-    for(vector<vertex>::iterator itx=vVertex.begin(); itx!=vVertex.end(); ++itx)
+    for(auto itx=vVertex.begin(); itx!=vVertex.end(); ++itx)
     {
-        cout << (*itx).id;
-        for(int i=0;i<(4-getNumberSize((*itx).id));++i)
+        cout << (*itx)->id;
+        for(int i=0;i<(4-getNumberSize((*itx)->id));++i)
         {
             cout << " ";
         }
-        for(vector<vertex>::iterator ity=vVertex.begin(); ity!=vVertex.end(); ++ity)
+        for(auto ity=vVertex.begin(); ity!=vVertex.end(); ++ity)
         {
             bool space = true;
-            for(edge &e : vEdge)
+            for(edge* e : vEdge)
             {
-                if(e.from.id == (*itx).id && e.to.id == (*ity).id){
+                if(e->from->id == (*itx)->id && e->to->id == (*ity)->id){
                     cout << "X";
-                    for(int i=0;i<getNumberSize((*ity).id);++i)
+                    for(int i=0;i<getNumberSize((*ity)->id);++i)
                     {
                         cout << " ";
                     }
@@ -128,7 +128,7 @@ void graph::printMatrix(){
             }
             if(space){
                 cout << " ";
-                for(int i=0;i<getNumberSize((*ity).id);++i)
+                for(int i=0;i<getNumberSize((*ity)->id);++i)
                 {
                     cout << " ";
                 }
@@ -139,12 +139,12 @@ void graph::printMatrix(){
 }
 
 void graph::printAdjList(){
-    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it){
-        cout << (*it).id << " : ";
-        for(edge& e : vEdge)
+    for(auto it=vVertex.begin(); it!=vVertex.end(); ++it){
+        cout << (*it)->id << " : ";
+        for(edge* e : vEdge)
         {
-            if(e.from.id == (*it).id){
-                cout << e.to.id << "|";
+            if(e->from->id == (*it)->id){
+                cout << e->to->id << "|";
             }
         }
         cout << endl;
@@ -155,13 +155,13 @@ void graph::toFileAdjList(const string path)
 {
     ofstream fStream(path);
     int nbr = 0;
-    for(vertex& v : vVertex)
+    for(vertex* v : vVertex)
     {
         nbr++;
     }
     fStream << nbr << endl;
     nbr=0;
-    for(edge& e : vEdge)
+    for(edge* e : vEdge)
     {
         nbr++;
     }
@@ -174,12 +174,12 @@ void graph::toFileAdjList(const string path)
         fStream << 'n' << endl;
     }
     fStream << 'l' << endl;
-    for(vector<vertex>::iterator it=vVertex.begin(); it!=vVertex.end(); ++it){
-        fStream << (*it).id << " ";
-        for(edge& e : vEdge)
+    for(auto it=vVertex.begin(); it!=vVertex.end(); ++it){
+        fStream << (*it)->id << " ";
+        for(edge* e : vEdge)
         {
-            if(e.from.id == (*it).id){
-                fStream << e.to.id << " ";
+            if(e->from->id == (*it)->id){
+                fStream << e->to->id << " ";
             }
         }
         fStream << endl;
@@ -190,13 +190,13 @@ void graph::toFileMatrix(const string path)
 {
     ofstream fStream(path);
     int nbr = 0;
-    for(vertex& v : vVertex)
+    for(vertex* v : vVertex)
     {
         nbr++;
     }
     fStream << nbr << endl;
     nbr=0;
-    for(edge& e : vEdge)
+    for(edge* e : vEdge)
     {
         nbr++;
     }
@@ -209,16 +209,16 @@ void graph::toFileMatrix(const string path)
         fStream << 'n' << endl;
     }
     fStream << 'm' << endl;
-    for(vector<vertex>::iterator itx=vVertex.begin(); itx!=vVertex.end(); ++itx)
+    for(auto itx=vVertex.begin(); itx!=vVertex.end(); ++itx)
     {
-        for(vector<vertex>::iterator ity=vVertex.begin(); ity!=vVertex.end(); ++ity)
+        for(auto ity=vVertex.begin(); ity!=vVertex.end(); ++ity)
         {
             bool found = false;
-            for(edge& e : vEdge)
+            for(edge* e : vEdge)
             {
-                if((*itx).id == e.from.id && (*ity).id == e.to.id)
+                if((*itx)->id == e->from->id && (*ity)->id == e->to->id)
                 {
-                    fStream << e.cost << " ";
+                    fStream << e->cost << " ";
                     found = true;
                 }
             }
@@ -231,7 +231,7 @@ void graph::toFileMatrix(const string path)
     }
 }
 
-void graph::getAdjListFromFile(const string path)
+void graph::getGraphFromFile(const string path)
 {
     ifstream fStream(path);
     this->vEdge.clear();
@@ -253,15 +253,16 @@ void graph::getAdjListFromFile(const string path)
             getline(fStream,s);
             ss << s;
             int turn = 0;
-            vertex from;
-            vertex to;
+            double weight=0.0;
+            vertex* from;
+            vertex* to;
             while(!ss.eof()){
                 if(turn==0)
                 {
                     ss >> temp;
                     if(stringstream(temp) >> fromId)
                     {
-                        from = vertex(fromId,0,0);
+                        from = new vertex(fromId,0,0);
                         vVertex.push_back(from);
                     }
                 }
@@ -270,12 +271,11 @@ void graph::getAdjListFromFile(const string path)
                     ss >> temp;
                     if(stringstream(temp) >> toId)
                     {
-                        if(to.id != toId || turn==1)
-                        {
-                            to = vertex(toId,0,0);
-                            vEdge.push_back(edge((turn-1)*i,from,to,0));
-                        }
+                        to = new vertex(toId,0,0);
+                        to->vNeighbour.push_back(make_pair(from,weight));
+                        vEdge.push_back(new edge((turn-1)*i,from,to,0));
                     }
+                    temp ="";
                 }
                 turn++;
             }
@@ -283,10 +283,55 @@ void graph::getAdjListFromFile(const string path)
     }
     else if(c == 'm')
     {
-        for(int i=0;i<=sizeVertex;++i)
+        for(int i=0;i<sizeVertex;++i)
+        {
+            vVertex.push_back(new vertex(i,0,0));
+        }
+        int posY = 0;
+        for(int i=-1;i<sizeVertex;++i)
         {
             string s;
             stringstream ss;
+            getline(fStream,s);
+            ss << s;
+            int posX = 0;
+            int weight;
+            while(!ss.eof())
+            {
+                ss >> temp;
+                if(stringstream(temp) >> weight)
+                {
+                    if(weight>0)
+                    {
+                        vEdge.push_back(new edge((sizeVertex)*i+posX,getVertexById(i),getVertexById(posX),weight));
+                        getVertexById(i)->vNeighbour.push_back(make_pair(getVertexById(posX),weight));
+                    }
+                    ++posX;
+                }
+                temp = "";
+            }
+        }
+    }
+}
+
+void graph::printAdjToVertex(int id)
+{
+    for(vertex* v : vVertex){
+        if(v->id == id)
+        {
+            for(pair<vertex*,double> vAdj : v->vNeighbour){
+                cout << vAdj.first->id << " | ";
+            }
+            cout << endl;
+        }
+    }
+}
+
+vertex* graph::getVertexById(int id)
+{
+    for(vertex* v : vVertex){
+        if(v->id == id){
+            return v;
         }
     }
 }

@@ -7,13 +7,13 @@ class edge
 {
     public:
         edge();
-        edge(int id,vertex from, vertex to, float cost);
+        edge(int id,vertex* from, vertex* to, float cost);
         virtual ~edge();
         friend vertex;
         friend class graph;
         int id;
-        vertex from;
-        vertex to;
+        vertex* from;
+        vertex* to;
     protected:
 
     private:

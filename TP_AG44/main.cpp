@@ -11,7 +11,8 @@ int main()
     //g.printMatrix();
     g.toFileAdjList("AdjList");
     g.toFileMatrix("Matrix");
-    g.getAdjListFromFile("AdjList");
+    g.getGraphFromFile("Matrix");
     g.printMatrix();
+    g.printAdjToVertex(2);
     return 0;
 }

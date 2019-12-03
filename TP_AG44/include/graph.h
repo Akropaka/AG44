@@ -11,8 +11,8 @@ using namespace std;
 class graph
 {
     public:
-        friend edge;
-        friend vertex;
+        friend class edge;
+        friend class vertex;
 
         graph(int nbrVertex);
         graph(int nbrVertex,bool directed);
@@ -24,14 +24,16 @@ class graph
         void printMatrix();
         void printAdjList();
         void toFileAdjList(const string);
-        void getAdjListFromFile(const string);
+        void getGraphFromFile(const string);
         void toFileMatrix(const string);
+        vertex* getVertexById(int id);
+        void printAdjToVertex(int id);
     protected:
 
     private:
         bool directedGraph;
-        vector<vertex> vVertex;
-        vector<edge> vEdge;
+        vector<vertex*> vVertex;
+        vector<edge*> vEdge;
         enum {DEFAULT_VERTEX = 10};
 };
 

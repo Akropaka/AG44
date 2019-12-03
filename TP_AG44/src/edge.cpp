@@ -5,7 +5,7 @@ edge::edge() : id(), from(), to(), cost()
     //ctor
 }
 
-edge::edge(int id, vertex from, vertex to, float cost){
+edge::edge(int id, vertex* from, vertex* to, float cost){
     this->id = id;
     this->from = from;
     this->to = to;

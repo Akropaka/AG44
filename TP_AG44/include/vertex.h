@@ -13,7 +13,7 @@ class vertex
         virtual ~vertex();
         int id;
         int x,y;
-        vector<pair<vertex*,double> > vNeighbour;
+        vector<pair<vertex*,double>> vNeighbour;
     protected:
 };
 

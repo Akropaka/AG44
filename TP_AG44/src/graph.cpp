@@ -1,5 +1,3 @@
-#include <time.h>
-#include <cstdlib>
 #include "graph.h"
 #include <vector>
 #include <iterator>
@@ -18,7 +16,7 @@ graph::graph(int nbrVertex)
     for(int i=0;i<nbrVertex;++i){
         vVertex.push_back(new vertex(i,i,i));
     }
-    for((auto) it=vVertex.begin(); it!=vVertex.end(); ++it)
+    for(auto it=vVertex.begin(); it!=vVertex.end(); ++it)
     {
         for(auto it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
         {

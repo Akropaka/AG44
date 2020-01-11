@@ -32,36 +32,3 @@
 	"vertex.h"
 	<string>
 
-1578243714 source:c:\users\theol\documents\github\ag44\tp_ag44\main.cpp
-	<iostream>
-	"graph.h"
-	"edge.h"
-	"vertex.h"
-
-1578243714 c:\users\theol\documents\github\ag44\tp_ag44\include\graph.h
-	<vector>
-	"edge.h"
-	"vertex.h"
-	<string>
-
-1578243714 c:\users\theol\documents\github\ag44\tp_ag44\include\edge.h
-	"vertex.h"
-
-1578244338 c:\users\theol\documents\github\ag44\tp_ag44\include\vertex.h
-	<vector>
-
-1578243714 source:c:\users\theol\documents\github\ag44\tp_ag44\src\edge.cpp
-	"edge.h"
-
-1578243714 source:c:\users\theol\documents\github\ag44\tp_ag44\src\graph.cpp
-	"graph.h"
-	<vector>
-	<iterator>
-	<iostream>
-	<string>
-	<fstream>
-	<sstream>
-
-1578243714 source:c:\users\theol\documents\github\ag44\tp_ag44\src\vertex.cpp
-	"vertex.h"
-

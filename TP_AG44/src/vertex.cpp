@@ -1,4 +1,5 @@
 #include "vertex.h"
+#include "edge.h"
 
 vertex::vertex() : id(), x(), y()
 {

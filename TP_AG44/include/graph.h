@@ -28,6 +28,7 @@ class graph
         void toFileMatrix(const string);
         vertex* getVertexById(int id);
         void printAdjToVertex(int id);
+        vector<int> BFS(int startVertex);
     protected:
 
     private:
@@ -38,5 +39,6 @@ class graph
 };
 
 int getNumberSize(int);
+void printVectorInt(vector<int>);
 
 #endif // GRAPH_H

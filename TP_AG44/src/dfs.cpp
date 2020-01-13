@@ -6,10 +6,7 @@ vector<int> graph::DFS(int startVertex)
 {
     vector<int> *dfsTab = new vector<int>;
 
-    for(vertex* vert : vVertex)
-    {
-        vert->visited=false;
-    }
+    resetVisitedVertices();
 
     *dfsTab = recursiveForDFS(getVertexById(startVertex), *dfsTab);
 

@@ -5,6 +5,7 @@
 #include "edge.h"
 #include "vertex.h"
 #include <string>
+#include <stack>
 
 using namespace std;
 
@@ -31,6 +32,10 @@ class graph
         vector<int> BFS(int startVertex);
         vector<int> DFS(int startVertex);
         vector<int> recursiveForDFS(vertex* V, vector<int>);
+        void orderForST(vertex* V, stack<int> &S);
+        void showStrongly_Related();
+        graph reverseGraph();
+        void resetVisitedVertices();
     protected:
 
     private:

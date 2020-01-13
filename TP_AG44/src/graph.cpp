@@ -44,7 +44,7 @@ graph::graph(int nbrVertex, bool directed)
         for(auto it2=vVertex.begin(); it2!=vVertex.end(); ++it2)
         {
             bool exist = false;
-            int test = rand()%3;
+            int test = rand()%5;
             if(test == 1){
                 for(edge* e : vEdge)
                 {
@@ -346,4 +346,12 @@ int getNumberSize(int n)
         res++;
     }
     return res;
+}
+
+void graph::resetVisitedVertices()
+{
+    for(vertex* vert : vVertex)
+    {
+        vert->visited=false;
+    }
 }

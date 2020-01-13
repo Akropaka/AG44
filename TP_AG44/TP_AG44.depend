@@ -32,17 +32,18 @@
 	"vertex.h"
 	<string>
 
-1578880703 source:c:\users\theol\documents\github\ag44\tp_ag44\main.cpp
+1578929226 source:c:\users\theol\documents\github\ag44\tp_ag44\main.cpp
 	<iostream>
 	"graph.h"
 	"edge.h"
 	"vertex.h"
 
-1578886813 c:\users\theol\documents\github\ag44\tp_ag44\include\graph.h
+1578924377 c:\users\theol\documents\github\ag44\tp_ag44\include\graph.h
 	<vector>
 	"edge.h"
 	"vertex.h"
 	<string>
+	<stack>
 
 1578243714 c:\users\theol\documents\github\ag44\tp_ag44\include\edge.h
 	"vertex.h"
@@ -50,10 +51,10 @@
 1578881202 c:\users\theol\documents\github\ag44\tp_ag44\include\vertex.h
 	<vector>
 
-1578882560 source:c:\users\theol\documents\github\ag44\tp_ag44\src\edge.cpp
+1578922612 source:c:\users\theol\documents\github\ag44\tp_ag44\src\edge.cpp
 	"edge.h"
 
-1578881142 source:c:\users\theol\documents\github\ag44\tp_ag44\src\graph.cpp
+1578928367 source:c:\users\theol\documents\github\ag44\tp_ag44\src\graph.cpp
 	"graph.h"
 	<vector>
 	<iterator>
@@ -63,18 +64,22 @@
 	<sstream>
 	<ctime>
 
-1578881172 source:c:\users\theol\documents\github\ag44\tp_ag44\src\vertex.cpp
+1578922611 source:c:\users\theol\documents\github\ag44\tp_ag44\src\vertex.cpp
 	"vertex.h"
 	"edge.h"
 
-1578880369 source:c:\users\theol\documents\github\ag44\tp_ag44\src\bfs.cpp
+1578923235 source:c:\users\theol\documents\github\ag44\tp_ag44\src\bfs.cpp
 	"graph.h"
 	<iostream>
 	<list>
 	<vector>
 
-1578887110 source:c:\users\theol\documents\github\ag44\tp_ag44\src\dfs.cpp
+1578923235 source:c:\users\theol\documents\github\ag44\tp_ag44\src\dfs.cpp
 	<vector>
 	<iostream>
 	"graph.h"
+
+1578928675 source:c:\users\theol\documents\github\ag44\tp_ag44\src\strongly_related.cpp
+	"graph.h"
+	<iostream>
 

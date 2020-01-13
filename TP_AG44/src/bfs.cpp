@@ -7,10 +7,7 @@ vector<int> graph::BFS(int startVertex)
 {
     vector<int> *bfsTab = new vector<int>;
 
-    for(vertex* vert : vVertex)
-    {
-        vert->visited=false;
-    }
+    resetVisitedVertices();
 
     list<int> queue;
     getVertexById(startVertex)->visited=true;

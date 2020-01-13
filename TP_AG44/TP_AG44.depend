@@ -38,7 +38,7 @@
 	"edge.h"
 	"vertex.h"
 
-1578880910 c:\users\theol\documents\github\ag44\tp_ag44\include\graph.h
+1578886813 c:\users\theol\documents\github\ag44\tp_ag44\include\graph.h
 	<vector>
 	"edge.h"
 	"vertex.h"
@@ -72,4 +72,9 @@
 	<iostream>
 	<list>
 	<vector>
+
+1578887110 source:c:\users\theol\documents\github\ag44\tp_ag44\src\dfs.cpp
+	<vector>
+	<iostream>
+	"graph.h"
 

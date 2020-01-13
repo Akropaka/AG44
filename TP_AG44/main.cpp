@@ -15,5 +15,7 @@ int main()
     //g.printMatrix();
     //g.printAdjToVertex(2);
     printVectorInt(g.BFS(0));
+    cout << endl;
+    printVectorInt(g.DFS(0));
     return 0;
 }

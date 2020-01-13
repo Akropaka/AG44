@@ -29,6 +29,8 @@ class graph
         vertex* getVertexById(int id);
         void printAdjToVertex(int id);
         vector<int> BFS(int startVertex);
+        vector<int> DFS(int startVertex);
+        vector<int> recursiveForDFS(vertex* V, vector<int>);
     protected:
 
     private:

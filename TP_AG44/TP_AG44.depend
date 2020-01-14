@@ -83,3 +83,54 @@
 	"graph.h"
 	<iostream>
 
+1578950528 source:/home/telhajhu/Bureau/AG44/TP_AG44/main.cpp
+	<iostream>
+	"graph.h"
+	"edge.h"
+	"vertex.h"
+
+1578950254 /home/telhajhu/Bureau/AG44/TP_AG44/include/graph.h
+	<vector>
+	"edge.h"
+	"vertex.h"
+	<string>
+	<stack>
+
+1578950254 /home/telhajhu/Bureau/AG44/TP_AG44/include/edge.h
+	"vertex.h"
+
+1578950254 /home/telhajhu/Bureau/AG44/TP_AG44/include/vertex.h
+	<vector>
+
+1578950254 source:/home/telhajhu/Bureau/AG44/TP_AG44/src/edge.cpp
+	"edge.h"
+
+1578950254 source:/home/telhajhu/Bureau/AG44/TP_AG44/src/graph.cpp
+	"graph.h"
+	<vector>
+	<iterator>
+	<iostream>
+	<string>
+	<fstream>
+	<sstream>
+	<ctime>
+
+1578950254 source:/home/telhajhu/Bureau/AG44/TP_AG44/src/vertex.cpp
+	"vertex.h"
+	"edge.h"
+
+1578950254 source:/home/telhajhu/Bureau/AG44/TP_AG44/src/bfs.cpp
+	"graph.h"
+	<iostream>
+	<list>
+	<vector>
+
+1578950254 source:/home/telhajhu/Bureau/AG44/TP_AG44/src/dfs.cpp
+	<vector>
+	<iostream>
+	"graph.h"
+
+1578950254 source:/home/telhajhu/Bureau/AG44/TP_AG44/src/strongly_related.cpp
+	"graph.h"
+	<iostream>
+
